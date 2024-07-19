@@ -32,8 +32,6 @@ public class CsvToListOfListsStringsConverter {
                 String[] values = line.split("\n");
                 passengersString.add(Arrays.asList(values));
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

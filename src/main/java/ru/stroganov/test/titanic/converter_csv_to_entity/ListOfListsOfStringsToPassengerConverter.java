@@ -1,7 +1,7 @@
 package ru.stroganov.test.titanic.converter_csv_to_entity;
 
 import org.springframework.stereotype.Component;
-import ru.stroganov.test.titanic.entities.PassengerEntity;
+import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,25 +25,14 @@ public class ListOfListsOfStringsToPassengerConverter {
         for (List<String> string : strings) {
             List<String> string2 = Arrays.asList(string.get(0).split(","));
             PassengerEntity passengerEntity = new PassengerEntity();
-            Boolean survived = false;
-            if (string2.get(0).equals("1")) {
-                survived = true;
-            }
-            passengerEntity.setSurvived(survived);
 
-            PassengerEntity.PClass pClass = PassengerEntity.PClass.FIRST;
-            if (string2.get(1).equals("2")) {
-                pClass = PassengerEntity.PClass.SECOND;
-            } else if (string2.get(1).equals("3")) {
-                pClass = PassengerEntity.PClass.THIRD;
-            }
-            passengerEntity.setpClass(pClass);
+            passengerEntity.setSurvived(convertStringToSurvived(string2.get(0)));
 
+            passengerEntity.setpClass(convertStringToPClass(string2.get(1)));
 
             passengerEntity.setName(string2.get(2));
 
-            boolean sex = string2.get(3).equals("male");
-            passengerEntity.setSex(sex);
+            passengerEntity.setSex(convertStringToSex(string2.get(3)));
 
             passengerEntity.setAge(Double.valueOf(string2.get(4)));
 
@@ -56,6 +45,25 @@ public class ListOfListsOfStringsToPassengerConverter {
             passengerEntities.add(passengerEntity);
         }
         return passengerEntities;
+    }
+
+    Boolean convertStringToSurvived(String s) {
+        boolean survived = s.equals("1");
+        return survived;
+    }
+
+    PassengerEntity.PClass convertStringToPClass(String s) {
+        PassengerEntity.PClass pClass = PassengerEntity.PClass.FIRST;
+        if (s.equals("2")) {
+            pClass = PassengerEntity.PClass.SECOND;
+        } else if (s.equals("3")) {
+            pClass = PassengerEntity.PClass.THIRD;
+        }
+        return pClass;
+    }
+
+    Boolean convertStringToSex(String s) {
+        return s.equals("male");
     }
 
 }

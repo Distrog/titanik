@@ -1,17 +1,24 @@
-package ru.stroganov.test.titanic.entities;
+package ru.stroganov.test.titanic.data.entities;
+
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+@Entity
 public class PassengerEntity {
     public enum PClass{
         FIRST,
         SECOND,
         THIRD
     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Boolean survived;
 
+    @Column(name = "class")
+    @Enumerated(EnumType.STRING)
     private PClass pClass;
 
     private String name;
@@ -20,8 +27,10 @@ public class PassengerEntity {
 
     private Double age;
 
+    @Column(name = "siblings_spouses")
     private Integer siblingsAndSpousesAboard;
 
+    @Column(name = "parents_children")
     private Integer parentsAndChildrenAboard;
 
     private BigDecimal fare;
