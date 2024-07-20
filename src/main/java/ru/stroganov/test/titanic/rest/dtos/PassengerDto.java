@@ -99,7 +99,7 @@ public class PassengerDto {
         this.fare = fare;
     }
 
-    private static PassengerDto convertPassengerEntityToPassengerDto(PassengerEntity entity) {
+    public static PassengerDto convertPassengerEntityToPassengerDto(PassengerEntity entity) {
         PassengerDto dto = new PassengerDto();
         dto.setSurvived(entity.getSurvived());
         dto.setpClass(entity.getpClass());
@@ -111,7 +111,7 @@ public class PassengerDto {
         return dto;
     }
 
-    private static List<PassengerDto> convertListOfPassengerEntitiesToListOfPassengerDtos(List<PassengerEntity> entities) {
+    public static List<PassengerDto> convertListOfPassengerEntitiesToListOfPassengerDtos(List<PassengerEntity> entities) {
         return entities.stream()
                 .map(PassengerDto::convertPassengerEntityToPassengerDto)
                 .toList();

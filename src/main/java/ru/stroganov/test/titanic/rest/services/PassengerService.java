@@ -1,11 +1,22 @@
 package ru.stroganov.test.titanic.rest.services;
 
-import org.springframework.http.ResponseEntity;
-import ru.stroganov.test.titanic.rest.dtos.PassengerDto;
+import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface PassengerService {
 
-    void getAllPassengers();
+    List<PassengerEntity> getAllPassengers();
+
+    List<PassengerEntity> getAllPassengersOrderByAscByName();
+
+    List<PassengerEntity> getAllPassengersOrderByDescByName();
+
+    List<PassengerEntity> getAllPassengersOrderByAscByAge();
+
+    List<PassengerEntity> getAllPassengersOrderByDescByAge();
+
+    List<PassengerEntity> getAllPassengersOrderByAscByFare();
+
+    List<PassengerEntity> getAllPassengersOrderByDescByFare();
 }

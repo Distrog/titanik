@@ -8,11 +8,11 @@ import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 import java.util.Collection;
 
 @RestController
-public class TestController {
+public class InitController {
 
    private final ListOfListsOfStringsToPassengerConverter converter;
 
-    public TestController(ListOfListsOfStringsToPassengerConverter converter) {
+    public InitController(ListOfListsOfStringsToPassengerConverter converter) {
         this.converter = converter;
     }
 
