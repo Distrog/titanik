@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "titanic")
 public class PassengerEntity {
     public enum PClass{
         FIRST,
@@ -32,6 +33,21 @@ public class PassengerEntity {
 
     @Column(name = "parents_children")
     private Integer parentsAndChildrenAboard;
+
+    public PassengerEntity() {
+    }
+
+    public PassengerEntity(Long id, Boolean survived, PClass pClass, String name, Boolean sex, Double age, Integer siblingsAndSpousesAboard, Integer parentsAndChildrenAboard, BigDecimal fare) {
+        this.id = id;
+        this.survived = survived;
+        this.pClass = pClass;
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.siblingsAndSpousesAboard = siblingsAndSpousesAboard;
+        this.parentsAndChildrenAboard = parentsAndChildrenAboard;
+        this.fare = fare;
+    }
 
     private BigDecimal fare;
 

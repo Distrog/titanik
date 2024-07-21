@@ -1,8 +1,10 @@
 package ru.stroganov.test.titanic.rest.controllers;
 
+import org.hibernate.type.descriptor.sql.internal.NativeEnumDdlTypeImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 import ru.stroganov.test.titanic.rest.dtos.PassengerDto;
@@ -65,6 +67,24 @@ public class PassengerController {
     @GetMapping("order-desc-by-fare")
     ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByFare() {
         List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByFare();
+        List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping(params = {"name"})
+    ResponseEntity<Collection<PassengerDto>> findPassengersByName(@RequestParam String name) {
+        List<PassengerEntity> entities = passengerService.findPassengerByName(name);
+        List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
+        return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping(path = "filters")
+    ResponseEntity<Collection<PassengerDto>> findPassengerByFilters(
+            @RequestParam(required = false) Boolean survived,
+            @RequestParam(required = false) Boolean adult,
+            @RequestParam(required = false) Boolean male,
+            @RequestParam(name = "with-out-relatives", required = false) Boolean withOutRelatives) {
+        List<PassengerEntity> entities = passengerService.findPassengersByFilters(survived, adult, male, withOutRelatives);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }

@@ -19,4 +19,8 @@ public interface PassengerService {
     List<PassengerEntity> getAllPassengersOrderByAscByFare();
 
     List<PassengerEntity> getAllPassengersOrderByDescByFare();
+
+    List<PassengerEntity> findPassengerByName(String name);
+
+    List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives);
 }

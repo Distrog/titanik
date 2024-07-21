@@ -101,6 +101,7 @@ public class PassengerDto {
 
     public static PassengerDto convertPassengerEntityToPassengerDto(PassengerEntity entity) {
         PassengerDto dto = new PassengerDto();
+        dto.setId(entity.getId());
         dto.setSurvived(entity.getSurvived());
         dto.setpClass(entity.getpClass());
         dto.setName(entity.getName());
@@ -108,6 +109,7 @@ public class PassengerDto {
         dto.setAge((int) Math.floor(entity.getAge()));
         dto.setSiblingsAndSpousesAboard(entity.getSiblingsAndSpousesAboard());
         dto.setParentsAndChildrenAboard(entity.getParentsAndChildrenAboard());
+        dto.setFare(entity.getFare());
         return dto;
     }
 

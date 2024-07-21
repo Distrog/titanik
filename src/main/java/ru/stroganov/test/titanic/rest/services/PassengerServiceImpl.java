@@ -1,11 +1,12 @@
 package ru.stroganov.test.titanic.rest.services;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 import ru.stroganov.test.titanic.data.repositories.PassengerRepository;
 
 import java.util.List;
-
+@Service
 public class PassengerServiceImpl implements PassengerService {
     private final PassengerRepository repository;
 
@@ -46,5 +47,15 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public List<PassengerEntity> getAllPassengersOrderByDescByFare() {
         return repository.findAll(Sort.by(Sort.Order.desc("fare")));
+    }
+
+    @Override
+    public List<PassengerEntity> findPassengerByName(String name) {
+        return repository.findByNameContainsIgnoreCase(name);
+    }
+
+    @Override
+    public List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives) {
+        return repository.findPassengersByFilters(survived, adult, male, withOutRelatives);
     }
 }
