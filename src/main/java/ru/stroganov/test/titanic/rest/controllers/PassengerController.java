@@ -1,6 +1,5 @@
 package ru.stroganov.test.titanic.rest.controllers;
 
-import org.hibernate.type.descriptor.sql.internal.NativeEnumDdlTypeImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,57 +22,66 @@ public class PassengerController {
     }
 
     @GetMapping
-    ResponseEntity<Collection<PassengerDto>> getAllPassengers() {
-        List<PassengerEntity> entities = passengerService.getAllPassengers();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengers(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                              @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengers(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-asc-by-name")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByName() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByName();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByName(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                              @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByName(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-desc-by-name")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByName() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByName();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByName(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                               @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByName(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-asc-by-age")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByAge() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByAge();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByAge(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                             @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByAge(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-desc-by-age")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByAge() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByAge();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByAge(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                              @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByAge(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-asc-by-fare")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByFare() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByFare();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByAscByFare(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                              @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByAscByFare(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping("order-desc-by-fare")
-    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByFare() {
-        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByFare();
+    ResponseEntity<Collection<PassengerDto>> getAllPassengersOrderByDescByFare(@RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                               @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.getAllPassengersOrderByDescByFare(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
 
     @GetMapping(params = {"name"})
-    ResponseEntity<Collection<PassengerDto>> findPassengersByName(@RequestParam String name) {
-        List<PassengerEntity> entities = passengerService.findPassengerByName(name);
+    ResponseEntity<Collection<PassengerDto>> findPassengersByName(@RequestParam String name,
+                                                                  @RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+                                                                  @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.findPassengerByName(name, pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }
@@ -83,8 +91,10 @@ public class PassengerController {
             @RequestParam(required = false) Boolean survived,
             @RequestParam(required = false) Boolean adult,
             @RequestParam(required = false) Boolean male,
-            @RequestParam(name = "with-out-relatives", required = false) Boolean withOutRelatives) {
-        List<PassengerEntity> entities = passengerService.findPassengersByFilters(survived, adult, male, withOutRelatives);
+            @RequestParam(name = "with-out-relatives", required = false) Boolean withOutRelatives,
+            @RequestParam(name = "page-number", defaultValue = "1") Integer pageNumber,
+            @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
+        List<PassengerEntity> entities = passengerService.findPassengersByFilters(survived, adult, male, withOutRelatives, pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
         return ResponseEntity.ok(dtos);
     }

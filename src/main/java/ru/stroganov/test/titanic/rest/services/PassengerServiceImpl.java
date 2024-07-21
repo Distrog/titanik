@@ -1,5 +1,6 @@
 package ru.stroganov.test.titanic.rest.services;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.stroganov.test.titanic.data.entities.PassengerEntity;
@@ -15,47 +16,56 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengers() {
-        return repository.findAll();
+    public List<PassengerEntity> getAllPassengers(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize);
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByAscByName() {
-        return repository.findAll(Sort.by(Sort.Order.asc("name")));
+    public List<PassengerEntity> getAllPassengersOrderByAscByName(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.asc("name")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByDescByName() {
-        return repository.findAll(Sort.by(Sort.Order.desc("name")));
+    public List<PassengerEntity> getAllPassengersOrderByDescByName(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.desc("name")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByAscByAge() {
-        return repository.findAll(Sort.by(Sort.Order.asc("age")));
+    public List<PassengerEntity> getAllPassengersOrderByAscByAge(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.asc("age")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByDescByAge() {
-        return repository.findAll(Sort.by(Sort.Order.desc("name")));
+    public List<PassengerEntity> getAllPassengersOrderByDescByAge(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.desc("age")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByAscByFare() {
-        return repository.findAll(Sort.by(Sort.Order.asc("fare")));
+    public List<PassengerEntity> getAllPassengersOrderByAscByFare(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.asc("fare")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> getAllPassengersOrderByDescByFare() {
-        return repository.findAll(Sort.by(Sort.Order.desc("fare")));
+    public List<PassengerEntity> getAllPassengersOrderByDescByFare(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,Sort.by(Sort.Order.desc("fare")));
+        return repository.findAll(pageRequest).getContent();
     }
 
     @Override
-    public List<PassengerEntity> findPassengerByName(String name) {
-        return repository.findByNameContainsIgnoreCase(name);
+    public List<PassengerEntity> findPassengerByName(String name, Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize);
+        return repository.findByNameContainsIgnoreCase(name,pageRequest);
     }
 
     @Override
-    public List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives) {
-        return repository.findPassengersByFilters(survived, adult, male, withOutRelatives);
+    public List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives, Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize);
+        return repository.findPassengersByFilters(survived, adult, male, withOutRelatives,pageRequest);
     }
 }

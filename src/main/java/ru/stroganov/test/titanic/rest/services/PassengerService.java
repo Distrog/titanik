@@ -6,21 +6,21 @@ import java.util.List;
 
 public interface PassengerService {
 
-    List<PassengerEntity> getAllPassengers();
+    List<PassengerEntity> getAllPassengers(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByAscByName();
+    List<PassengerEntity> getAllPassengersOrderByAscByName(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByDescByName();
+    List<PassengerEntity> getAllPassengersOrderByDescByName(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByAscByAge();
+    List<PassengerEntity> getAllPassengersOrderByAscByAge(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByDescByAge();
+    List<PassengerEntity> getAllPassengersOrderByDescByAge(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByAscByFare();
+    List<PassengerEntity> getAllPassengersOrderByAscByFare(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> getAllPassengersOrderByDescByFare();
+    List<PassengerEntity> getAllPassengersOrderByDescByFare(Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> findPassengerByName(String name);
+    List<PassengerEntity> findPassengerByName(String name, Integer pageNumber, Integer pageSize);
 
-    List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives);
+    List<PassengerEntity> findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives, Integer pageNumber, Integer pageSize);
 }

@@ -1,12 +1,9 @@
 package ru.stroganov.test.titanic.rest.dtos;
 
-import jakarta.persistence.*;
 import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PassengerDto {
     private Long id;

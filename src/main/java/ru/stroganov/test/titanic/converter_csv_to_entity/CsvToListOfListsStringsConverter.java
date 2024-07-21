@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import ru.stroganov.test.titanic.download_csv.CsvDownloader;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
