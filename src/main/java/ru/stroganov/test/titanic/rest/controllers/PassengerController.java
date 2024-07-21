@@ -1,5 +1,7 @@
 package ru.stroganov.test.titanic.rest.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import netscape.javascript.JSObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ public class PassengerController {
                                                               @RequestParam(name = "page-size", defaultValue = "50") Integer pageSize) {
         List<PassengerEntity> entities = passengerService.getAllPassengers(pageNumber, pageSize);
         List<PassengerDto> dtos = PassengerDto.convertListOfPassengerEntitiesToListOfPassengerDtos(entities);
+        ObjectMapper objectMapper = new ObjectMapper();
         return ResponseEntity.ok(dtos);
     }
 
