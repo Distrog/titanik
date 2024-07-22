@@ -1,11 +1,10 @@
 package ru.stroganov.test.titanic.rest.dtos;
 
-import ru.stroganov.test.titanic.data.repositories.PassengerRepository;
-import ru.stroganov.test.titanic.rest.dtos.PassengerDto;
-
 import java.math.BigDecimal;
 import java.util.Collection;
 
+//сущность возвращиемая пользователям по запросам, содержащая помимо листа пассажиров: общую стоимость билетов,
+//число пассажиров с родственниками на борту, выживших пассажиров, колличество страниц
 public class PassengerResponse {
 
     Collection<PassengerDto> passengers;

@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import ru.stroganov.test.titanic.converter_csv_to_entity.ListOfListsOfStringsToPassengerConverter;
 import ru.stroganov.test.titanic.data.repositories.PassengerRepository;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+//запускается при старте приложения. Скачивает csv-файл в корень проекта и загружает пассажиров в базу данных
 @Component
 public class CommandLineRunnerImpl implements CommandLineRunner {
     private final ListOfListsOfStringsToPassengerConverter converter;

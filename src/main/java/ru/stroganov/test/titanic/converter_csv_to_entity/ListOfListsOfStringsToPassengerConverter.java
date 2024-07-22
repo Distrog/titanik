@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+// класс преобразует лист строк в коллекцию пассажиров
+//преобразует поле выжившие из численного в булеан
+//преобразует пол в булеан (муж - true, жен - false)
+//преобзует класс (численное поле) в enum
 @Component
 public class ListOfListsOfStringsToPassengerConverter {
     CsvToListOfListsStringsConverter converter;

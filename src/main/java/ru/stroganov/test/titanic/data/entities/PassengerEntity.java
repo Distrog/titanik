@@ -3,7 +3,7 @@ package ru.stroganov.test.titanic.data.entities;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-
+//сущность пассажира для внесения в базу данных
 @Entity
 @Table(name = "titanic")
 public class PassengerEntity {

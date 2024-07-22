@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//класс преобразует скачанный csv-файл в лист листов строк
 @Component
 public class CsvToListOfListsStringsConverter {
 

@@ -8,12 +8,17 @@ import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 
 import java.util.List;
 
+//репозиторий наследуемый от jparepositoty (то есть имеет все стандартные crud операции)
 public interface PassengerRepository extends JpaRepository<PassengerEntity, Long> {
 
+    //метод запрашивает всех пассажиров из базы по имени в требуемом количество (количество записей на странице)
     List<PassengerEntity> findByNameContainsIgnoreCase(String name, PageRequest pageRequest);
 
+    //метод запрашивает всех пассажиров из базы по имени в требуемом количество
     List<PassengerEntity> findByNameContainsIgnoreCase(String name);
 
+    //метод запрашивает всех пассажиров из базы по фильтрам (выжил?, мужчина?, нет родственников на борту?,
+    // совершеннолетний?) в требуемом количество (количество записей на странице)
     @Query("SELECT p FROM PassengerEntity p WHERE (:survived is null or p.survived = true) " +
             "and (:adult is null or p.age >= 16) " +
             "and (:male is null or p.sex = true) " +
@@ -24,6 +29,8 @@ public interface PassengerRepository extends JpaRepository<PassengerEntity, Long
              @Param("male") Boolean male,
              @Param("withOutRelatives") Boolean withOutRelatives, PageRequest pageRequest);
 
+    //метод запрашивает всех пассажиров из базы по фильтрам (выжил?, мужчина?, нет родственников на борту?,
+    // совершеннолетний?)
     @Query("SELECT p FROM PassengerEntity p WHERE (:survived is null or p.survived = true) " +
             "and (:adult is null or p.age >= 16) " +
             "and (:male is null or p.sex = true) " +

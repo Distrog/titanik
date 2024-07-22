@@ -1,9 +1,6 @@
 package ru.stroganov.test.titanic.rest.services;
 
-import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 import ru.stroganov.test.titanic.rest.dtos.PassengerResponse;
-
-import java.util.List;
 
 public interface PassengerService {
 

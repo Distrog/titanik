@@ -5,6 +5,7 @@ import ru.stroganov.test.titanic.data.entities.PassengerEntity;
 import java.math.BigDecimal;
 import java.util.List;
 
+//data transfer object который предоставляется пользователю по запросам
 public class PassengerDto {
     private Long id;
 
@@ -96,6 +97,7 @@ public class PassengerDto {
         this.fare = fare;
     }
 
+    //статический метод преобразующий энтити в дто
     public static PassengerDto convertPassengerEntityToPassengerDto(PassengerEntity entity) {
         PassengerDto dto = new PassengerDto();
         dto.setId(entity.getId());
@@ -110,6 +112,7 @@ public class PassengerDto {
         return dto;
     }
 
+    //статический метод преобразующий лист энтити в лист дто
     public static List<PassengerDto> convertListOfPassengerEntitiesToListOfPassengerDtos(List<PassengerEntity> entities) {
         return entities.stream()
                 .map(PassengerDto::convertPassengerEntityToPassengerDto)

@@ -21,6 +21,7 @@ public class PassengerServiceImpl implements PassengerService {
         this.repository = repository;
     }
 
+    //возвращает всех пассажиров
     @Override
     @Cacheable("allPassengers")
     public PassengerResponse getAllPassengers(Integer pageNumber, Integer pageSize) {
@@ -29,14 +30,16 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    //возвращает всех пассажиров, отсортированных по имени в прямом порядке
     @Override
-    @Cacheable("allPassengerWithName")
+    @Cacheable("allPassengersOrderByAscByName")
     public PassengerResponse getAllPassengersOrderByAscByName(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.asc("name")));
         Page<PassengerEntity> page = repository.findAll(pageRequest);
         return getPassengerResponse(page);
     }
 
+    //возвращает всех пассажиров, отсортированных по имени в обратном порядке
     @Override
     @Cacheable("allPassengersOrderByDescByName")
     public PassengerResponse getAllPassengersOrderByDescByName(Integer pageNumber, Integer pageSize) {
@@ -44,6 +47,8 @@ public class PassengerServiceImpl implements PassengerService {
         Page<PassengerEntity> page = repository.findAll(pageRequest);
         return getPassengerResponse(page);
     }
+
+    //возвращает всех пассажиров, отсортированных по возрасту в прямом порядке
 @Cacheable("allPassengersOrderByAscByAge")
     @Override
     public PassengerResponse getAllPassengersOrderByAscByAge(Integer pageNumber, Integer pageSize) {
@@ -52,6 +57,7 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    //возвращает всех пассажиров, отсортированных по возрасту в обратном порядке
     @Cacheable("allPassengersOrderByDescByAge")
     @Override
     public PassengerResponse getAllPassengersOrderByDescByAge(Integer pageNumber, Integer pageSize) {
@@ -60,6 +66,7 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    //возвращает всех пассажиров, отсортированных по стоимости проезда в прямом порядке
     @Cacheable("allPassengersOrderByAscByFare")
     @Override
     public PassengerResponse getAllPassengersOrderByAscByFare(Integer pageNumber, Integer pageSize) {
@@ -68,6 +75,7 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    //возвращает всех пассажиров, отсортированных по стоимости проезда в обратном порядке
     @Override
     @Cacheable("allPassengersOrderByDescByFare")
     public PassengerResponse getAllPassengersOrderByDescByFare(Integer pageNumber, Integer pageSize) {
@@ -77,6 +85,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
 
+    //вспомогательный метод собирающий passengerResponse для методов возвращающих всех пассажиров
     private PassengerResponse getPassengerResponse(Page<PassengerEntity> page) {
         PassengerResponse response = new PassengerResponse();
         response.setCountOfPages(page.getTotalPages());
@@ -91,6 +100,7 @@ public class PassengerServiceImpl implements PassengerService {
         return response;
     }
 
+    //вспомогательный метод вычисляющий пассажиров у которых были родственники на борту
     private void setCountOfPassengerHavingRelatives(List<PassengerEntity> passengers, PassengerResponse response) {
         Long countOfPassengersWithRelatives = passengers.stream()
                 .filter(p -> p.getParentsAndChildrenAboard() > 0 && p.getSiblingsAndSpousesAboard() > 0)
@@ -98,6 +108,7 @@ public class PassengerServiceImpl implements PassengerService {
         response.setCountOfPassengerHavingRelatives(countOfPassengersWithRelatives);
     }
 
+    //вспомогательный метод вычисляющий выживших пассажиров
     private void setCountOfSurvivedPassengers
             (List<PassengerEntity> passengers, PassengerResponse response) {
         Long countOfSurvivedPassenger = passengers.stream()
@@ -105,6 +116,7 @@ public class PassengerServiceImpl implements PassengerService {
         response.setCountSurvivedPassengers(countOfSurvivedPassenger);
     }
 
+    //вспомогательный метод вычисляющий сумму стоимости билетов
     private void setSumOfFares(List<PassengerEntity> passengers, PassengerResponse response) {
         BigDecimal sumOfFares = passengers.stream()
                 .map(p -> p.getFare())
@@ -112,6 +124,7 @@ public class PassengerServiceImpl implements PassengerService {
         response.setSumOfFares(sumOfFares);
     }
 
+    //возвращает всех пассажиров имя которых содержит символы
     @Override
     @Cacheable("passengersWithName")
     public PassengerResponse findPassengerByName(String name, Integer pageNumber, Integer pageSize) {
@@ -138,6 +151,7 @@ public class PassengerServiceImpl implements PassengerService {
         return response;
     }
 
+    //возвращает всех пассажиров после фильтраций
     @Override
     @Cacheable("passengersWithFilters")
     public PassengerResponse findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives, Integer pageNumber, Integer pageSize) {
