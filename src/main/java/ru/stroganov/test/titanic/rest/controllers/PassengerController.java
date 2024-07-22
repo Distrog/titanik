@@ -1,14 +1,11 @@
 package ru.stroganov.test.titanic.rest.controllers;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.stroganov.test.titanic.data.entities.PassengerEntity;
-import ru.stroganov.test.titanic.rest.dtos.PassengerDto;
 import ru.stroganov.test.titanic.rest.dtos.PassengerResponse;
 import ru.stroganov.test.titanic.rest.services.PassengerService;
 

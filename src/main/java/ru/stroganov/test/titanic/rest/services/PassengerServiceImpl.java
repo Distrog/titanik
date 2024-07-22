@@ -1,5 +1,6 @@
 package ru.stroganov.test.titanic.rest.services;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("allPassengers")
     public PassengerResponse getAllPassengers(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         Page<PassengerEntity> page = repository.findAll(pageRequest);
@@ -28,6 +30,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("allPassengerWithName")
     public PassengerResponse getAllPassengersOrderByAscByName(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.asc("name")));
         Page<PassengerEntity> page = repository.findAll(pageRequest);
@@ -35,12 +38,13 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("allPassengersOrderByDescByName")
     public PassengerResponse getAllPassengersOrderByDescByName(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.desc("name")));
         Page<PassengerEntity> page = repository.findAll(pageRequest);
         return getPassengerResponse(page);
     }
-
+@Cacheable("allPassengersOrderByAscByAge")
     @Override
     public PassengerResponse getAllPassengersOrderByAscByAge(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.asc("age")));
@@ -48,6 +52,7 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    @Cacheable("allPassengersOrderByDescByAge")
     @Override
     public PassengerResponse getAllPassengersOrderByDescByAge(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.desc("age")));
@@ -55,6 +60,7 @@ public class PassengerServiceImpl implements PassengerService {
         return getPassengerResponse(page);
     }
 
+    @Cacheable("allPassengersOrderByAscByFare")
     @Override
     public PassengerResponse getAllPassengersOrderByAscByFare(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.asc("fare")));
@@ -63,11 +69,13 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("allPassengersOrderByDescByFare")
     public PassengerResponse getAllPassengersOrderByDescByFare(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Sort.Order.desc("fare")));
         Page<PassengerEntity> page = repository.findAll(pageRequest);
         return getPassengerResponse(page);
     }
+
 
     private PassengerResponse getPassengerResponse(Page<PassengerEntity> page) {
         PassengerResponse response = new PassengerResponse();
@@ -105,6 +113,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("passengersWithName")
     public PassengerResponse findPassengerByName(String name, Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         PassengerResponse response = new PassengerResponse();
@@ -130,6 +139,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    @Cacheable("passengersWithFilters")
     public PassengerResponse findPassengersByFilters(Boolean survived, Boolean adult, Boolean male, Boolean withOutRelatives, Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         PassengerResponse response = new PassengerResponse();
