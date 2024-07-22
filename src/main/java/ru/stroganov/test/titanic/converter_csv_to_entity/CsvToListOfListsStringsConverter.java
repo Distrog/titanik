@@ -1,5 +1,6 @@
 package ru.stroganov.test.titanic.converter_csv_to_entity;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.stroganov.test.titanic.download_csv.CsvDownloader;
 
@@ -17,17 +18,18 @@ public class CsvToListOfListsStringsConverter {
 
     public CsvToListOfListsStringsConverter(CsvDownloader downloader) {
         this.downloader = downloader;
-        downloader.download();
     }
 
-    private String path = "titanic.csv";
+    @Value("${csv.path}")
+    private String path ;
 
-    public List<List<String>> convert(){
+    public List<List<String>> convert() {
+        downloader.download();
         List<List<String>> passengersString = new ArrayList<>();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(path))){
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
-            while((line = br.readLine())!=null){
+            while ((line = br.readLine()) != null) {
                 String[] values = line.split("\n");
                 passengersString.add(Arrays.asList(values));
             }

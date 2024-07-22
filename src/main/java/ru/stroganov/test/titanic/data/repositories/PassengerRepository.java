@@ -12,6 +12,8 @@ public interface PassengerRepository extends JpaRepository<PassengerEntity, Long
 
     List<PassengerEntity> findByNameContainsIgnoreCase(String name, PageRequest pageRequest);
 
+    List<PassengerEntity> findByNameContainsIgnoreCase(String name);
+
     @Query("SELECT p FROM PassengerEntity p WHERE (:survived is null or p.survived = true) " +
             "and (:adult is null or p.age >= 16) " +
             "and (:male is null or p.sex = true) " +
@@ -21,4 +23,16 @@ public interface PassengerRepository extends JpaRepository<PassengerEntity, Long
              @Param("adult") Boolean adult,
              @Param("male") Boolean male,
              @Param("withOutRelatives") Boolean withOutRelatives, PageRequest pageRequest);
+
+    @Query("SELECT p FROM PassengerEntity p WHERE (:survived is null or p.survived = true) " +
+            "and (:adult is null or p.age >= 16) " +
+            "and (:male is null or p.sex = true) " +
+            "and (:withOutRelatives is null or (p.siblingsAndSpousesAboard = 0 and p.parentsAndChildrenAboard = 0))")
+    List<PassengerEntity> findPassengersByFilters
+            (@Param("survived") Boolean survived,
+             @Param("adult") Boolean adult,
+             @Param("male") Boolean male,
+             @Param("withOutRelatives") Boolean withOutRelatives);
+
+
 }

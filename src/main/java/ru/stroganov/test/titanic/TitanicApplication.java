@@ -10,8 +10,6 @@ public class TitanicApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TitanicApplication.class, args);
-
-
 	}
 
 }
